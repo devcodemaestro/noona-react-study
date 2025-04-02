@@ -11,15 +11,15 @@ import Box from "./component/Box";
 const choice = {
   rock: {
     name: "rock",
-    img: "/images/rock.svg",
+    img: `${process.env.PUBLIC_URL}/images/rock.svg`,
   },
   scissors: {
     name: "scissors",
-    img: "/images/scissors.svg",
+    img: `${process.env.PUBLIC_URL}/images/scissors.svg`,
   },
   paper: {
     name: "paper",
-    img: "/images/paper.svg",
+    img: `${process.env.PUBLIC_URL}/images/paper.svg`,
   },
 };
 
