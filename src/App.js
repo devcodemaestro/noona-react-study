@@ -20,9 +20,13 @@ const choice = {
   },
 };
 
+const defaultSelect = {
+  img: `${process.env.PUBLIC_URL}/images/question-mark.svg`,
+};
+
 function App() {
-  const [userSelect, setUserSelect] = useState(null);
-  const [computerSelect, setComputerSelect] = useState(null);
+  const [userSelect, setUserSelect] = useState(defaultSelect);
+  const [computerSelect, setComputerSelect] = useState(defaultSelect);
   const [result, setResult] = useState("");
   const [computerResult, setComputerResult] = useState("");
 
