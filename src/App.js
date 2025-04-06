@@ -35,7 +35,7 @@ function App() {
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=kr `;
     let response = await fetch(url);
     let data = await response.json();
-    let cityNameUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`;
+    let cityNameUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`;
     let cityNameResponse = await fetch(cityNameUrl);
     let cityNameData = await cityNameResponse.json();
     setWeather(data);
