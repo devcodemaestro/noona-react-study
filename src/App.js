@@ -3,26 +3,18 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WeatherBox from "./component/WeatherBox";
 import WeatherButton from "./component/WeatherButton";
-
-// 유저 스토리
-
-// 1. 유저는 현재위치의 날씨를 볼 수 있다.(지역,온도,날씨 상태)
-// 2. 유저는 다른 도시의 버튼들을 볼 수 있다.
-// 3. 유저는 다른 도시 버튼을 클릭하면 해당 도시의 날씨 정보를 볼 수 있다.
-// 4. 유저는 데이터가 로딩될 때 로딩 스피너를 볼 수 있다.
-
-// 1. 앱이 실행되자 마자 현재 위치 기반의 날씨가 보인다.
-// 2. 날씨 정보에는 도시, 섭씨, 화씨, 날씨상태
-// 3. 5개의 버튼이 있다 (1개는 현재위치, 4개는 고정된 도시)
-// 4. 도시 버튼을 클릭할 때마다 도시별 날씨가 나오낟.
-// 5. 현재위치 버튼을 누르면 다시 현재위치 기반의 날씨가 나온다.
-// 6. 데이터를 들고오는 동안 로딩 스피너가 돈다.
+import ClipLoader from "react-spinners/ClipLoader";
 
 const OPENWEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
 
 function App() {
   const [weather, setWeather] = useState(null);
+  const [city, setCity] = useState("");
+  const cities = ["paris", "new york", "seoul", "tokyo"];
   const [cityName, setCityName] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [apiError, setAPIError] = useState("");
+
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       let lat = position.coords.latitude;
@@ -32,20 +24,59 @@ function App() {
   };
 
   const getWeatherByCuttrentLocation = async (lat, lon) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=kr `;
-    let response = await fetch(url);
-    let data = await response.json();
-    let cityNameUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`;
-    let cityNameResponse = await fetch(cityNameUrl);
-    let cityNameData = await cityNameResponse.json();
-    setWeather(data);
-    setCityName(cityNameData[0].local_names.ko);
+    try {
+      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=kr `;
+      let response = await fetch(url);
+      let data = await response.json();
+      let cityNameUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`;
+      let cityNameResponse = await fetch(cityNameUrl);
+      let cityNameData = await cityNameResponse.json();
+      setWeather(data);
+      setCityName(cityNameData[0].local_names.ko);
+      setLoading(false);
+    } catch (error) {
+      console.log("error", error);
+      setAPIError(error.message);
+      setLoading(false);
+    }
+  };
+
+  const getWeatherByCity = async () => {
+    try {
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=kr`;
+      let response = await fetch(url);
+      let data = await response.json();
+      let cityNameUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=${OPENWEATHER_API_KEY}`;
+      let cityNameResponse = await fetch(cityNameUrl);
+      let cityNameData = await cityNameResponse.json();
+      setWeather(data);
+      setCityName(cityNameData[0].local_names.ko);
+      setLoading(false);
+    } catch (error) {
+      console.log("error", error);
+      setAPIError(error.message);
+      setLoading(false);
+    }
+  };
+
+  const handleCityChange = (city) => {
+    if (city === "current") {
+      setCity("");
+    } else {
+      setCity(city);
+    }
   };
 
   useEffect(() => {
-    getCurrentLocation();
+    if (city === "") {
+      setLoading(true);
+      getCurrentLocation();
+    } else {
+      setLoading(true);
+      getWeatherByCity();
+    }
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [city]);
 
   return (
     <div
@@ -57,10 +88,28 @@ function App() {
         height: `100vh`,
       }}
     >
-      <div className="container">
-        <WeatherBox weather={weather} cityName={cityName} />
-        <WeatherButton />
-      </div>
+      {loading ? (
+        <div className="container">
+          <ClipLoader
+            color="#f88c6b"
+            loading={loading}
+            size={150}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : !apiError ? (
+        <div className="container">
+          <WeatherBox weather={weather} cityName={cityName} />
+          <WeatherButton
+            cities={cities}
+            city={city}
+            handleCityChange={handleCityChange}
+          />
+        </div>
+      ) : (
+        apiError
+      )}
     </div>
   );
 }
