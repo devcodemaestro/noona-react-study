@@ -6,7 +6,8 @@ const ProductAll = () => {
   const [productList, setProductList] = useState([]);
 
   const getProducts = async () => {
-    const url = process.env.REACT_APP_JSON_DB_URL;
+    const url =
+      "https://my-json-server.typicode.com/devcodemaestro/noona-react-study";
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
