@@ -6,7 +6,7 @@ const ProductAll = () => {
   const [productList, setProductList] = useState([]);
 
   const getProducts = async () => {
-    let url = "http://localhost:5000/products";
+    const url = process.env.REACT_APP_JSON_DB_URL;
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
