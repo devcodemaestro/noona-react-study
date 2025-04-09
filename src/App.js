@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import ProductAll from "pages/ProductAll";
+import { Route, Routes } from "react-router";
 import "./App.css";
-import { Routes, Route } from "react-router";
+import Navbar from "./component/Navbar";
 import Login from "./pages/Login";
 import ProductDetail from "./pages/ProductDetail";
-import Navbar from "./component/Navbar";
-import ProductAll from "pages/ProductAll";
 
 //1. 전체 상품 페이지, 로그인, 상품 상세 페이지를 만든다.
 //1-1. 네비게이션 바
