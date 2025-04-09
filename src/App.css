@@ -4,17 +4,23 @@ li {
   margin: 0;
   padding: 0;
 }
+.nav-container {
+  padding: 20px;
+}
+
 .login-button {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin: 20px;
   gap: 10px;
+  cursor: pointer;
 }
 
 .nav-section {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .menu-container {
@@ -55,4 +61,20 @@ li {
 .product-search:focus {
   outline: none;
   border-bottom: 1px solid black;
+}
+
+.product-card {
+  cursor: pointer;
+}
+
+.img-container {
+  overflow: hidden;
+}
+
+.product-img {
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.1);
 }

@@ -2,8 +2,10 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const menuList = [
     "여성",
     "Divided",
@@ -14,15 +16,23 @@ const Navbar = () => {
     "Sale",
     "지속가능성",
   ];
+
+  const goToLogin = () => {
+    navigate("/login");
+  };
+
+  const goToHome = () => {
+    navigate("/");
+  };
   return (
-    <div>
+    <div className="nav-container">
       <div>
-        <div className="login-button">
+        <div className="login-button" onClick={goToLogin}>
           <FontAwesomeIcon icon={faUser} />
           <div>로그인</div>
         </div>
       </div>
-      <div className="nav-section">
+      <div className="nav-section" onClick={goToHome}>
         <img src="/images/hnm-logo.svg" width={100} alt="h&m-logo" />
       </div>
       <div className="menu-container">
