@@ -1,116 +1,32 @@
-import { useEffect, useState } from "react";
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import WeatherBox from "./component/WeatherBox";
-import WeatherButton from "./component/WeatherButton";
-import ClipLoader from "react-spinners/ClipLoader";
+import "./App.css";
+import { Routes, Route } from "react-router";
+import Login from "./pages/Login";
+import ProductDetail from "./pages/ProductDetail";
+import Navbar from "./component/Navbar";
+import ProductAll from "pages/ProductAll";
 
-const OPENWEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
+//1. 전체 상품 페이지, 로그인, 상품 상세 페이지를 만든다.
+//1-1. 네비게이션 바
+//2. 전체 상품페이지에서는 전체 상품을 볼 수 있다.
+//3-1. 로그인 버튼을 누르면 로그인 페이지가 나온다.
+//3-2. 상품 디테일을 눌렀으나로그인이 안되어 있을 경우 로그인 페이지가 먼저 나온다.
+//4. 로그인이 되어 있을 경우에는 상품 디테일 페이지를 볼 수 있다.
+//5-1. 로그아웃 버튼을 클릭하면 로그아웃이 된다.
+//5-2. 로그아웃이 되면 상품 디테일 페이지를 볼 수 없다. 다시 로그인 페이지가 보인다.
+//6. 로그인을 하면 로그아웃이 보이고 로그아웃을 하면 로그인이 보인다.
+//7. 상품을 검색할 수 있다.
 
 function App() {
-  const [weather, setWeather] = useState(null);
-  const [city, setCity] = useState("");
-  const cities = ["paris", "new york", "seoul", "tokyo"];
-  const [cityName, setCityName] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [apiError, setAPIError] = useState("");
-
-  const getCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      getWeatherByCuttrentLocation(lat, lon);
-    });
-  };
-
-  const getWeatherByCuttrentLocation = async (lat, lon) => {
-    try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=kr `;
-      let response = await fetch(url);
-      let data = await response.json();
-      let cityNameUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`;
-      let cityNameResponse = await fetch(cityNameUrl);
-      let cityNameData = await cityNameResponse.json();
-      setWeather(data);
-      setCityName(cityNameData[0].local_names.ko);
-      setLoading(false);
-    } catch (error) {
-      console.log("error", error);
-      setAPIError(error.message);
-      setLoading(false);
-    }
-  };
-
-  const getWeatherByCity = async () => {
-    try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=kr`;
-      let response = await fetch(url);
-      let data = await response.json();
-      let cityNameUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=${OPENWEATHER_API_KEY}`;
-      let cityNameResponse = await fetch(cityNameUrl);
-      let cityNameData = await cityNameResponse.json();
-      setWeather(data);
-      setCityName(cityNameData[0].local_names.ko);
-      setLoading(false);
-    } catch (error) {
-      console.log("error", error);
-      setAPIError(error.message);
-      setLoading(false);
-    }
-  };
-
-  const handleCityChange = (city) => {
-    if (city === "current") {
-      setCity("");
-    } else {
-      setCity(city);
-    }
-  };
-
-  useEffect(() => {
-    if (city === "") {
-      setLoading(true);
-      getCurrentLocation();
-    } else {
-      setLoading(true);
-      getWeatherByCity();
-    }
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [city]);
-
   return (
-    <div
-      style={{
-        background: `url(${process.env.PUBLIC_URL + "/images/background.png"})`,
-        backgroundSize: "cover",
-        backgroundPosition: `center`,
-        backgroundRepeat: `no-repeat`,
-        height: `100vh`,
-      }}
-    >
-      {loading ? (
-        <div className="container">
-          <ClipLoader
-            color="#f88c6b"
-            loading={loading}
-            size={150}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </div>
-      ) : !apiError ? (
-        <div className="container">
-          <WeatherBox weather={weather} cityName={cityName} />
-          <WeatherButton
-            cities={cities}
-            city={city}
-            handleCityChange={handleCityChange}
-          />
-        </div>
-      ) : (
-        apiError
-      )}
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<ProductAll />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+      </Routes>
+    </>
   );
 }
 
