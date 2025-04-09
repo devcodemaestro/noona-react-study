@@ -7,7 +7,7 @@ const ProductAll = () => {
 
   const getProducts = async () => {
     const url =
-      "https://my-json-server.typicode.com/devcodemaestro/noona-react-study";
+      "https://my-json-server.typicode.com/devcodemaestro/noona-react-study/products";
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
