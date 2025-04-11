@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Dropdown, Row } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 
 const ProductDetail = () => {
@@ -10,7 +10,6 @@ const ProductDetail = () => {
     const url = process.env.REACT_APP_JSON_DB_URL + "/" + id;
     let response = await fetch(url);
     let data = await response.json();
-    console.log("IDdata", data);
     setProduct(data);
   };
 
@@ -24,7 +23,7 @@ const ProductDetail = () => {
         <Col className="product-img" sm={6}>
           <img src={product?.img} alt={product?.img} />
         </Col>
-        <Col sm={6}>
+        <Col sm={6} className="product-content">
           <div>{product?.title}</div>
           <div>₩{product?.price}</div>
           <div>{product?.choice === true ? "Conscious choice" : ""}</div>
@@ -36,6 +35,7 @@ const ProductDetail = () => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
+          <Button variant="dark">추가</Button>
         </Col>
       </Row>
     </Container>

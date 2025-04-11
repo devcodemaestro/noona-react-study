@@ -8,13 +8,13 @@ import { useNavigate } from "react-router";
 const Navbar = ({ authenticate, setAuthenticate }) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [search, setSearch] = useState(false);
+  const [sideSearch, setSideSearch] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleSearchClose = () => setSearch(false);
-  const handleSearchShow = () => setSearch(true);
+  const handleSearchClose = () => setSideSearch(false);
+  const handleSearchShow = () => setSideSearch(true);
 
   const menuList = [
     "여성",
@@ -38,6 +38,13 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
   const goToHome = () => {
     navigate("/");
   };
+
+  const search = (e) => {
+    if (e.key === "Enter") {
+      let keyword = e.target.value;
+      navigate(`/?q=${keyword}`);
+    }
+  };
   return (
     <div className="nav-container">
       <div className="nav-header">
@@ -48,7 +55,7 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
               focusable="false"
               data-prefix="fas"
               data-icon="bars"
-              class="svg-inline--fa fa-bars fa-w-14 "
+              className="svg-inline--fa fa-bars fa-w-14 "
               role="img"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 448 512"
@@ -75,7 +82,11 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
           <div className="hide search-menu" onClick={handleSearchShow}>
             <FontAwesomeIcon icon={faSearch} />
           </div>
-          <Offcanvas show={search} onHide={handleSearchClose} placement={"end"}>
+          <Offcanvas
+            show={sideSearch}
+            onHide={handleSearchClose}
+            placement={"end"}
+          >
             <Offcanvas.Header closeButton></Offcanvas.Header>
             <div className="side-search-container">
               <FontAwesomeIcon icon={faSearch} className="side-search-icon" />
@@ -83,7 +94,8 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
                 type="text"
                 placeholder="제품검색"
                 className="product-search"
-              ></input>
+                onKeyUp={(e) => search(e)}
+              />
             </div>
           </Offcanvas>
           <div className="login-button" onClick={goToLogin}>
@@ -94,7 +106,7 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
       </div>
       <div className="section-container">
         <div className="nav-section" onClick={goToHome}>
-          <img src="/images/hnm-logo.svg" width={100} alt="h&m-logo" />
+          <img src="/images/hnm-logo.svg" width={70} alt="h&m-logo" />
         </div>
         <div className="menu-container">
           <ul className="menu-list">
@@ -108,7 +120,8 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
               type="text"
               placeholder="제품검색"
               className="product-search"
-            ></input>
+              onKeyUp={(e) => search(e)}
+            />
           </div>
         </div>
       </div>
