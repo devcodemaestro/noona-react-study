@@ -41,8 +41,8 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
       </div>
       <div className="menu-container">
         <ul className="menu-list">
-          {menuList.map((menu) => (
-            <li>{menu}</li>
+          {menuList.map((menu, index) => (
+            <li key={index}>{menu}</li>
           ))}
         </ul>
         <div className="search-container">
