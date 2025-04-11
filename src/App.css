@@ -8,19 +8,70 @@ li {
   padding: 20px;
 }
 
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .login-button {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 20px;
+  margin-left: 20px;
   gap: 10px;
   cursor: pointer;
 }
-
+.section-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
 .nav-section {
   display: flex;
   justify-content: center;
   cursor: pointer;
+}
+.burger-menu {
+  cursor: pointer;
+}
+.side-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-menu {
+  cursor: pointer;
+}
+.hide {
+  visibility: hidden;
+}
+
+.offcanvas {
+  max-width: 250px;
+}
+
+.side-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  margin-top: 10px;
+}
+
+.side-menu-list li a {
+  display: block;
+  text-align: center;
+  background: none;
+  border: none;
+  text-decoration: none;
+  width: 120px;
+  color: black;
+}
+
+.side-menu-list li a:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .menu-container {
@@ -29,12 +80,24 @@ li {
   align-items: center;
   margin-top: 20px;
 }
+
 .menu-list {
   display: flex;
   list-style: none;
-
   gap: 10px;
   align-items: center;
+}
+
+@media screen and (max-width: 62.0625rem) {
+  .hide {
+    visibility: visible;
+  }
+  .menu-list {
+    display: none;
+  }
+  .menu-container {
+    display: none;
+  }
 }
 
 .search-container {
@@ -43,6 +106,19 @@ li {
   align-items: center;
   position: absolute;
   right: 20px;
+}
+
+.side-search-container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.side-search-icon {
+  position: absolute;
+  left: 10px;
+  pointer-events: none;
 }
 
 .product-search {
@@ -72,9 +148,45 @@ li {
 }
 
 .product-img {
+  display: flex;
+  justify-content: center;
   transition: transform 0.5s ease;
 }
 
 .product-card:hover .product-img {
+  width: 100%;
   transform: scale(1.1);
+}
+
+.product-img img {
+  max-width: 100%;
+}
+.product-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#dropdown-basic {
+  background: white;
+  color: black;
+  border: 1px solid black;
+  width: 100%;
+}
+
+#dropdown-basic:hover {
+  background: black;
+  color: white;
+}
+
+.dropdown-menu {
+  width: 100%;
+}
+
+.dropdown-item {
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
