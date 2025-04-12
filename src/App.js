@@ -1,28 +1,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import ProductAll from "pages/ProductAll";
-import { useState } from "react";
-import { Route, Routes } from "react-router";
-import PrivateRoute from "route/PrivateRoute";
 import "./App.css";
-import Navbar from "./component/Navbar";
-import Login from "./pages/Login";
+import counterStore from "store/counterStore";
 
 function App() {
-  const [authenticate, setAuthenticate] = useState(false);
+  const { count, increase, decrease, increaseBy, decreaseBy } = counterStore();
   return (
     <>
-      <Navbar authenticate={authenticate} setAuthenticate={setAuthenticate} />
-      <Routes>
-        <Route path="/" element={<ProductAll />} />
-        <Route
-          path="/login"
-          element={<Login setAuthenticate={setAuthenticate} />}
-        />
-        <Route
-          path="/product/:id"
-          element={<PrivateRoute authenticate={authenticate} />}
-        />
-      </Routes>
+      <h1>count:{count}</h1>
+      <button onClick={increase}> 1 증가</button>
+      <button onClick={() => increaseBy(10)}>10 증가</button>
+      <button onClick={decrease}>1 감소</button>
+      <button onClick={() => decreaseBy(10)}>10 감소</button>
     </>
   );
 }
