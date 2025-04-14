@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router";
 import PrivateRoute from "route/PrivateRoute";
 import "./App.css";
+import "./styles/ShoppingMall.css";
 import Navbar from "./component/Navbar";
 import Login from "./pages/Login";
 

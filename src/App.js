@@ -1,17 +1,25 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import counterStore from "store/counterStore";
+import Grid from "@mui/material/Grid";
+import ContactForm from "component/ContactForm";
+import ContactList from "component/ContactList";
+import { Box } from "@mui/material";
 
 function App() {
-  const { count, increase, decrease, increaseBy, decreaseBy } = counterStore();
   return (
-    <>
-      <h1>count:{count}</h1>
-      <button onClick={increase}> 1 증가</button>
-      <button onClick={() => increaseBy(10)}>10 증가</button>
-      <button onClick={decrease}>1 감소</button>
-      <button onClick={() => decreaseBy(10)}>10 감소</button>
-    </>
+    <div className="App">
+      <Box className="p-2">
+        <h1 className="text-center p-3">연락처 앱</h1>
+        <Grid container spacing={2}>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <ContactForm />
+          </Grid>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <ContactList />
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
   );
 }
 
