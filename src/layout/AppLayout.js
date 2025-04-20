@@ -3,31 +3,22 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet } from "react-router";
 import "./AppLayout.style.css";
 
 const AppLayout = () => {
-  const navigate = useNavigate();
-  const goToHome = () => {
-    navigate("/");
-  };
-
   return (
     <div>
       <Navbar expand="lg" className="custom-navbar">
         <Container fluid>
           <Navbar.Brand href="/" className="text-white fw-bold fs-4">
-            <div className="nav-section" onClick={goToHome}>
-              <img src="/images/logo.svg" width={70} alt="h&m-logo" />
+            <div className="nav-section">
+              <img src="/images/logo.svg" width={70} alt="logo" />
             </div>
           </Navbar.Brand>
-          <Navbar.Toggle
-            aria-controls="navbarScroll"
-            className="navbar-toggler"
-          />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-              <Nav.Link href="#" className="text-white" onClick={goToHome}>
+              <Nav.Link href="/" className="text-white">
                 Home
               </Nav.Link>
               <Nav.Link href="movies" className="text-white">
@@ -39,14 +30,8 @@ const AppLayout = () => {
                 type="search"
                 placeholder="Search"
                 className="me-2 search-input"
-                aria-label="Search"
               />
-              <Button
-                variant="outline-light"
-                style={{ color: "red", border: "1px solid red" }}
-              >
-                Search
-              </Button>
+              <Button variant="outline-danger">Search</Button>
             </Form>
           </Navbar.Collapse>
         </Container>
