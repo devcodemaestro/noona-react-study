@@ -11,7 +11,14 @@ const MovieCard = ({ movie }) => {
       className="movie-card"
     >
       <div className="overlay p-2">
-        <h1 style={{ fontSize: "2rem", textOverflow: "ellipsis" }}>
+        <h1
+          style={{
+            fontSize: "2rem",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
           {movie?.title}
         </h1>
         {movie?.genre_ids.map((id) => (
