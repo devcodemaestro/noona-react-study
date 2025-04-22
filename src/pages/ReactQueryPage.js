@@ -20,12 +20,6 @@ const ReactQueryPage = () => {
     gcTime: 3000, // 기본은 5분. staleTime < gcTime. gc처리되면 staleTime은 무쓸모.
   });
 
-  console.log("isLoading", isLoading);
-  console.log("ddd", data);
-  console.log("isLoading", isLoading);
-  console.log("isError", isError);
-  console.log("error", error);
-
   if (isLoading) {
     return <h1>Loading...</h1>;
   }

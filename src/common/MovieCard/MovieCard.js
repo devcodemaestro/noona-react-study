@@ -38,16 +38,7 @@ const MovieCard = ({ movie }) => {
       className="movie-card"
     >
       <div className="overlay p-2">
-        <h1
-          style={{
-            fontSize: "2rem",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {movie?.title}
-        </h1>
+        <h1>{movie?.title}</h1>
         {showGenre(movie?.genre_ids).map((genre, index) => (
           <Badge bg="danger" className="me-1" key={index}>
             {genre}
