@@ -1,21 +1,34 @@
 import React from "react";
-import { Badge } from "react-bootstrap";
+import { Alert, Badge } from "react-bootstrap";
 import "./MovieCard.style.css";
 import { useMovieGenreQuery } from "hooks/useMovieGenre";
 
 const MovieCard = ({ movie }) => {
-  const { data: genreData } = useMovieGenreQuery();
+  const {
+    data: genreData = [],
+    isLoading,
+    isError,
+    error,
+  } = useMovieGenreQuery();
 
   const showGenre = (genreIdList) => {
-    if (!genreIdList) {
+    if (!genreIdList || !genreData) {
       return [];
     }
-    const genreNameList = genreIdList?.map((id) => {
-      const genreObj = genreData?.find((genre) => genre.id === id);
-      return genreObj.name;
+
+    const genreNameList = genreIdList.map((id) => {
+      const genreObj = genreData.find((genre) => genre.id === id);
+      return genreObj?.name || "Unknown";
     });
     return genreNameList;
   };
+
+  if (isLoading) {
+    <h1>Loading...</h1>;
+  }
+  if (isError) {
+    <Alert variant="danger">{error.message}</Alert>;
+  }
 
   return (
     <div
@@ -35,9 +48,9 @@ const MovieCard = ({ movie }) => {
         >
           {movie?.title}
         </h1>
-        {showGenre(movie?.genre_ids).map((id, index) => (
+        {showGenre(movie?.genre_ids).map((genre, index) => (
           <Badge bg="danger" className="me-1" key={index}>
-            {id}
+            {genre}
           </Badge>
         ))}
         <div>
