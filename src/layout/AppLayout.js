@@ -16,6 +16,10 @@ const AppLayout = () => {
               <img src="/images/logo.svg" width={70} alt="logo" />
             </div>
           </Navbar.Brand>
+          <Navbar.Toggle
+            aria-controls="navbarScroll"
+            // className="navbar-toggler"
+          />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" navbarScroll>
               <Nav.Link href="/" className="text-white">
