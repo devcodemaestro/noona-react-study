@@ -23,8 +23,21 @@
 .banner-text-area > * {
   z-index: 2;
 }
-@media (max-width: 480px) {
+
+@media (max-width: 768px) {
   .banner-text-area {
-    width: 100%;
+    width: 48%;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner-text-area {
+    width: 60%;
+  }
+}
+
+@media (max-width: 575px) {
+  .banner-text-area {
+    width: 84%;
   }
 }
