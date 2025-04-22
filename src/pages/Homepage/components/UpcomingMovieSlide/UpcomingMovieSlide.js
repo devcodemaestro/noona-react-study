@@ -1,6 +1,6 @@
 import React from "react";
 import MovieSlide from "../MovieSlide/MovieSlide";
-import { useUpcomingMoviesQuery } from "hooks/usePopularMovies";
+import { useUpcomingMoviesQuery } from "hooks/useMovieSlides";
 
 const UpcomingMovieSlide = () => {
   const { data, isLoading, isError, error } = useUpcomingMoviesQuery();

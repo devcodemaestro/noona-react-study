@@ -1,4 +1,4 @@
-import { usePopularMoviesQuery } from "hooks/usePopularMovies";
+import { usePopularMoviesQuery } from "hooks/useMovieSlides";
 import { Alert } from "react-bootstrap";
 import "./Banner.style.css";
 

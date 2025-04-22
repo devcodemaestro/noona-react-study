@@ -1,5 +1,5 @@
 import React from "react";
-import { usePopularMoviesQuery } from "hooks/usePopularMovies";
+import { usePopularMoviesQuery } from "hooks/useMovieSlides";
 import MovieSlide from "../MovieSlide/MovieSlide";
 
 const PopularMovieSlide = () => {

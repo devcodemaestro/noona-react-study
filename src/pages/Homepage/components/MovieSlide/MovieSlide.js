@@ -9,22 +9,18 @@ const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 1440 },
     items: 5,
-    partialVisibilityGutter: 40,
   },
   desktop: {
     breakpoint: { max: 1440, min: 1024 },
     items: 4,
-    partialVisibilityGutter: 30,
   },
   tablet: {
     breakpoint: { max: 1024, min: 768 },
     items: 2,
-    partialVisibilityGutter: 20,
   },
   mobile: {
     breakpoint: { max: 768, min: 0 },
     items: 1,
-    partialVisibilityGutter: 10,
   },
 };
 
@@ -37,12 +33,10 @@ const MovieSlide = ({ title, data, isLoading, isError, error }) => {
       <h3 className="fw-bold pt-5">{title}</h3>
       <Carousel
         responsive={responsive}
-        infinite
-        draggable
-        keyBoardControl
-        partialVisible
+        infinite={true}
         containerClass="carousel-container"
-        itemClass="carousel-item-padding-40-px"
+        itemClass="carousel-item-padding"
+        partialVisible={false}
       >
         {data.results.map((movie, index) => (
           <MovieCard movie={movie} key={index} />

@@ -1,7 +1,14 @@
 .movie-card {
-  width: 220px;
-  height: 330px;
+  height: 400px;
+  width: 100%;
   background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
   cursor: pointer;
   transition: 0.5s;
 }
@@ -9,8 +16,10 @@
 .overlay {
   width: 100%;
   height: 100%;
+  padding: 1rem;
   background: rgba(43, 41, 41, 0.9);
   opacity: 0;
+  overflow: hidden;
   transition: all 1s;
   font-weight: bold;
   overflow-wrap: break-word;
@@ -21,6 +30,22 @@
 }
 
 .movie-card:hover {
-  transform: scale(1.3) translateZ(20px);
-  z-index: 2;
+  transform: scale(1.05) translateZ(20px);
+  z-index: 11;
+}
+
+.carousel-item-padding {
+  padding: 0 10px;
+}
+
+@media (max-width: 768px) {
+  .movie-card {
+    height: 300px;
+    border-radius: 8px;
+    padding: 0 10px;
+  }
+
+  .overlay h1 {
+    font-size: 1.2rem;
+  }
 }
